@@ -1,0 +1,11 @@
+version: "0.5"
+
+processes:
+  backend:
+    command: "uv run uvicorn contract_screening.api:app --host 127.0.0.1 --port 8000 --reload"
+    availability:
+      restart: "on_failure"
+  frontend:
+    command: "python3 -m http.server 5173 --directory frontend"
+    availability:
+      restart: "on_failure"

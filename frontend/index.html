@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="契約書における個人データ取扱い委託を一次スクリーニングする評価画面"
+    />
+    <title>契約書スクリーニング | 評価セット</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">PERSONAL DATA HANDLING / EVALUATION SET</p>
+          <h1>契約書全件判定（Jevモデルの活用）</h1>
+          <p class="intro">
+            個人データの取扱い委託に該当する可能性を、改正個人情報保護法の観点から一次評価します。
+          </p>
+        </div>
+        <div class="header-actions">
+          <button id="metrics-button" class="button button-secondary" type="button" disabled>
+            実行統計
+          </button>
+          <button id="screen-button" class="button button-primary" type="button" disabled>
+            <span id="screen-button-label">判定を実行</span>
+            <span id="screen-button-spinner" class="spinner button-spinner" hidden></span>
+          </button>
+        </div>
+      </header>
+
+      <section class="information-row" aria-label="データセット情報">
+        <div class="stat-block">
+          <span>契約書</span>
+          <strong id="contract-count">—</strong>
+          <small>synthetic documents</small>
+        </div>
+        <div class="stat-block">
+          <span>分類構成</span>
+          <strong>25 × 4</strong>
+          <small>明確 / 判定しにくい</small>
+        </div>
+        <p class="scope-note">
+          表題を選択すると、本文を右側のパネルで確認できます。判定は補助情報であり、法的助言ではありません。
+        </p>
+      </section>
+
+      <section class="dataset-card" aria-labelledby="dataset-title">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">DATASET</p>
+            <h2 id="dataset-title">評価対象一覧</h2>
+          </div>
+          <p id="table-status" class="table-status" role="status">契約書を読み込んでいます</p>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead id="contracts-table-head"></thead>
+            <tbody id="contracts-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="metrics-panel" class="metrics-card" aria-labelledby="metrics-title" hidden>
+        <div>
+          <p class="eyebrow">EXECUTION METRICS</p>
+          <h2 id="metrics-title">全件実行の集計</h2>
+        </div>
+        <div class="metric-grid">
+          <div>
+            <span>実行時間</span>
+            <strong id="elapsed-value">—</strong>
+          </div>
+          <div>
+            <span>総 input token</span>
+            <strong id="tokens-value">—</strong>
+          </div>
+          <div>
+            <span>合計料金</span>
+            <strong id="cost-value">—</strong>
+          </div>
+        </div>
+        <p id="pricing-note" class="pricing-note"></p>
+      </section>
+
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+    </main>
+
+    <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+    <aside
+      id="contract-drawer"
+      class="contract-drawer"
+      aria-labelledby="drawer-title"
+      aria-modal="true"
+      role="dialog"
+      hidden
+    >
+      <header class="drawer-header">
+        <div>
+          <p class="eyebrow">CONTRACT TEXT</p>
+          <h2 id="drawer-title">契約書本文</h2>
+        </div>
+        <button id="close-drawer-button" class="close-button" type="button" aria-label="本文パネルを閉じる">
+          ×
+        </button>
+      </header>
+      <article id="drawer-body" class="contract-body"></article>
+    </aside>
+
+    <template id="loading-cell-template">
+      <span class="loading-cell"><span class="spinner" aria-hidden="true"></span><span class="sr-only">判定中</span></span>
+    </template>
+    <script src="./app.js"></script>
+  </body>
+</html>
